@@ -20,14 +20,14 @@ public class AppSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("admin")
                 .password("admin")
-                .roles("USER","ADMIN");
+                .roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/user").hasAnyRole("USER","ADMIN")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .and().formLogin();
     }
